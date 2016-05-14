@@ -45,7 +45,11 @@ def download(client, track, dir, override=False):
     audiofile.tag.file_info = eyed3.id3.FileInfo(file_name)
     audiofile.tag.images.set(3,imagedata,"image/jpeg")
     audiofile.tag.artist = u"%s" % track.user['username']
-    audiofile.tag.album = u"%s" % track.user['username']
+    if "playlist_title" in globals():
+        audiofile.tag.album = u"%s" % playlist_title
+        audiofile.tag.album_artist = u"%s" % playlist.user['username']
+    else:
+        audiofile.tag.album = u"%s" % u"Everything"
     audiofile.tag.album_artist = u"%s" % track.user['username']
     audiofile.tag.title = u"%s" % track.title
     audiofile.tag.save()
