@@ -11,17 +11,17 @@ def download_from_url(client_id, track_url, dir, override=False):
     """Download from URL"""
     client = soundcloud.Client(client_id=client_id)
     track = client.get('/resolve', url=track_url)
-    download(client, track, dir, override)
+    download(client, track, dir, False, override)
 
 
-def download_from_id(client_id, track_id, dir, override=False):
+def download_from_id(client_id, track_id, dir, playlist=False, override=False):
     """Download using the song id"""
     client = soundcloud.Client(client_id=client_id)
     track = client.get('/tracks/%d' % track_id, allow_redirects=False)
-    download(client, track, dir, override)
+    download(client, track, dir, playlist, override)
 
 
-def download(client, track, dir, override=False):
+def download(client, track, dir, playlist=False, override=False):
     """Download a track using the given SC client"""
     title = fix_title(track.title, track.user['username'])
     print '"%s"' % title
@@ -45,12 +45,12 @@ def download(client, track, dir, override=False):
     audiofile.tag.file_info = eyed3.id3.FileInfo(file_name)
     audiofile.tag.images.set(3,imagedata,"image/jpeg")
     audiofile.tag.artist = u"%s" % track.user['username']
-    if "playlist_title" in globals():
-        audiofile.tag.album = u"%s" % playlist_title
-        audiofile.tag.album_artist = u"%s" % playlist.user['username']
-    else:
+    if playlist == False:
         audiofile.tag.album = u"%s" % u"Everything"
-    audiofile.tag.album_artist = u"%s" % track.user['username']
+        audiofile.tag.album_artist = u"%s" % "Various Artists"
+    else:
+        audiofile.tag.album = u"%s" % playlist.title
+        audiofile.tag.album_artist = u"%s" % playlist.user['username']
     audiofile.tag.title = u"%s" % track.title
     audiofile.tag.save()
     return True
