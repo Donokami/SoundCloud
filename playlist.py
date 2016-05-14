@@ -24,7 +24,7 @@ def download_from_url(client_id, url, base_dir, override=False):
     for trak in playlist.tracks:
         try:
             #done = song.down(client, track, dir, override)
-            done = track.download_from_id(client_id, trak['id'], dir, override)
+            done = track.download_from_id(client_id, trak['id'], dir, playlist, override)
             if done: downloaded = downloaded + 1
             else: skipped = skipped + 1
         except requests.exceptions.HTTPError, err:
