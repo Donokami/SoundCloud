@@ -26,7 +26,6 @@ def download_from_url(client_id, url, base_dir, override=False):
         try:
             #done = song.down(client, track, dir, override)
             done = track.download_from_id(client_id, trak['id'], dir, playlist, override)
-            traitement = traitement + 1
             if done == True:
                 downloaded = downloaded + 1
             elif done == False:
@@ -42,7 +41,7 @@ def download_from_url(client_id, url, base_dir, override=False):
 
     print 'Playlist downloaded to "%s"' % playlist_title
     return Counter({
-        'downloaded': downloaded, 'skipped': skipped, 'errors': errors, 'traitement': traitement,
+        'downloaded': downloaded, 'skipped': skipped, 'errors': errors,
     })
 
 
