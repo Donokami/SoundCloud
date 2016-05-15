@@ -28,13 +28,19 @@ parser = argparse.ArgumentParser(description='Download a SoundCloud tracks and p
 parser.add_argument('--track', '-t', help="Track URL")
 parser.add_argument('--playlist', '-p', help="Public or shared playlist URL")
 parser.add_argument('--all', '-a', help="User URL. Download all tracks for all public playlists")
-parser.add_argument('--id', help='Client ID', required=True)
+parser.add_argument('--id', help='Client ID')
 parser.add_argument(
         '--override', '-d', action='store_true',
         help='Override file if it exists. Defaults to false')
 args = parser.parse_args()
 
+#To change your default directory
 dir = 'mp3'
+#To change the default Client ID if this current doesn't works. WARNING! Some tracks are not downloaded by custom client ID.
+if args.id is None:
+    args.id = '376f225bf427445fc4bfb6b99b72e0bf'
+
+
 
 error_msg = None
 try:
