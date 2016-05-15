@@ -10,6 +10,7 @@ def download_from_url(client_id, url, base_dir, override=False):
     downloaded = 0
     skipped = 0
     errors = 0
+    traitement = 0
 
     # Retrieve playlist data
     client = soundcloud.Client(client_id=client_id)
@@ -25,8 +26,13 @@ def download_from_url(client_id, url, base_dir, override=False):
         try:
             #done = song.down(client, track, dir, override)
             done = track.download_from_id(client_id, trak['id'], dir, playlist, override)
-            if done: downloaded = downloaded + 1
-            else: skipped = skipped + 1
+            traitement = traitement + 1
+            if done == True:
+                downloaded = downloaded + 1
+            elif done == False:
+                skipped = skipped + 1
+            elif done == "Error":
+                errors = errors + 1
         except requests.exceptions.HTTPError, err:
             if err.response.status_code == 404:
                 print 'Error: could not download'
@@ -36,7 +42,7 @@ def download_from_url(client_id, url, base_dir, override=False):
 
     print 'Playlist downloaded to "%s"' % playlist_title
     return Counter({
-        'downloaded': downloaded, 'skipped': skipped, 'errors': errors
+        'downloaded': downloaded, 'skipped': skipped, 'errors': errors, 'traitement': traitement,
     })
 
 
