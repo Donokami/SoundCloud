@@ -20,9 +20,9 @@ You need Python 2.7.5 or above, python-pip and the following library:
 
 * EyeD3: `pip install eyed3`
 
-3° Get your client id
+3° **(NOW OPTIONAL)** Get your Client ID
 
-You also need a *CLIENT ID* from SoundCloud. [Register your "app"](http://soundcloud.com/you/apps/new).
+If the current Client ID doesn't works, you will also need a *CLIENT ID* from SoundCloud. [Register your "app" here](http://soundcloud.com/you/apps/new).
 
 ## Download a track
 
